@@ -81,11 +81,26 @@ class ClusteringOptionParser
 
 		void usage() const {
 		
-			std::cout << "\t\tVOROCLUST 1.0" << std::endl
-                                << "Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC (NTESS)." << std::endl
-                                << "Under the terms of Contract DE-NA0003525 with NTESS, there is a non-exclusive license" << std::endl
-                                << "for use of this work by or on behalf of the U.S. Government. Export of this data may" << std::endl
-                                << "require a license from the United States Government." << std::endl
+			std::cout << "\t\tVOROCLUST" << std::endl
+                                << "BSD 2-Clause License" << std::endl
+                                << "Copyright (c) 2025, Sandia National Laboratories" << std::endl
+                                << "Redistribution and use in source and binary forms, with or without" << std::endl
+                                << "modification, are permitted provided that the following conditions are met:" << std::endl
+                                << "1. Redistributions of source code must retain the above copyright notice, this" << std::endl
+                                << "\tlist of conditions and the following disclaimer." << std::endl
+                                << "2. Redistributions in binary form must reproduce the above copyright notice," << std::endl
+                                << "\tthis list of conditions and the following disclaimer in the documentation" << std::endl
+                                << "\tand/or other materials provided with the distribution." << std::endl
+                                << "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"" << std::endl
+                                << "AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE" << std::endl
+                                << "IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE" << std::endl
+                                << "DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE" << std::endl
+                                << "FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL" << std::endl
+                                << "DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR" << std::endl
+                                << "SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER" << std::endl
+                                << "CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY," << std::endl
+                                << "OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE" << std::endl
+                                << "OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." << std::endl
                                 << "\n" << std::endl
                                 << "VoroClust accepts one argument: a configuration file." << std::endl
 				<< "\texample: voroclust.exe path/to/config.in" << std::endl
