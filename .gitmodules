@@ -1,0 +1,6 @@
+[submodule "tpl/kokkos"]
+	path = tpl/kokkos
+	url = git@github.com:kokkos/kokkos.git
+[submodule "src/Clustering/PythonWrapper/pybind11"]
+	path = src/Clustering/PythonWrapper/pybind11
+	url = https://github.com/pybind/pybind11.git
