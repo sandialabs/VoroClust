@@ -27,21 +27,6 @@
 
 #include "Utils.h"
 
-template size_t utils::resize_array<size_t>(size_t*& input_array, size_t data_dimensions, size_t capacity, size_t new_capacity);
-template size_t utils::resize_array<Sphere>(Sphere*& input_array, size_t data_dimensions, size_t capacity, size_t new_capacity);
-
-template <class T>
-size_t utils::resize_array(T*& input_array, size_t data_dimensions, size_t capacity, size_t new_capacity)
-{
-	T* tmp = new T[new_capacity * data_dimensions];
-
-	std::copy(input_array, input_array + capacity * data_dimensions, tmp);
-	delete[] input_array;
-
-	input_array = tmp;
-	return new_capacity;
-}
-
 bool utils::load_csv(std::string filename, size_t& data_size, size_t& data_dimensions, double*& data)
 {
 	size_t measured_dimensions = 0;
