@@ -1,3 +1,28 @@
+# VoroClust
+
+VoroClust is a scalable, density-based clustering algorithm that leverages sphere covers to accurately model the geometric structure of clusters.  The algorithm has one primary parameter, the radius `R` used to construct the sphere cover, and three auxiliary parameters: `detail_ceiling`, `descent_limit`, and `noise_threshold`.  The detail ceiling helps avoid breaking up clusters in high-density regions (e.g., triggered by false peaks due to noise in the empirical density estimates). The descent limit prevents clusters from expanding too far into low density regions, where outliers and anomalies may be present.  Finally, the noise threshold parameter can be specified to adjust the percentage of data that is declared noise.
+
+
+# Installation
+
+First, download the source code from the repository:
+```console
+$ git clone https://github.com/sandialabs/VoroClust.git
+```
+
+Change into the Python source directory, and install using pip:
+```console
+$ cd ./VoroClust/python
+$ python -m pip install .
+```
+
+
+# Example Usage
+
+
+
+
+# C++ Installation
 ----- Step 1 -----
 
 To build the VoroClust executable:
