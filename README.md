@@ -97,7 +97,7 @@ A collection of simple test problems are provided in the [./tests/](./tests/) di
 
 <p align="center">
   <img src="tests/figs/example_results_2.png" width="35%" style="vertical-align: middle;"/>
-  <img src="tests/figs/example_results_1.png" width="55%" style="vertical-align: middle;"/>
+  <img src="tests/figs/example_results_1.png" width="50%" style="vertical-align: middle;"/>
 </p>
 
 
