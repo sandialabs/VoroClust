@@ -19,6 +19,34 @@ $ python -m pip install .
 
 # Example Usage
 
+```python
+from voroclust import voroclust
+import matplotlib.pyplot as plt
+import numpy as np
+
+data = np.loadtxt("path/to/data.csv", delimiter=',')
+size = data.shape[0]
+dimensions = data.shape[1]
+
+vc = voroclust(data.flatten(),
+               data_size=size,
+               data_dimensions = dimensions,
+               radius=0.35,
+               detail_ceiling=0.8,
+               descent_limit=0.2,
+               num_threads=12)
+
+vc.execute()
+
+# Choose between optional post-processing steps
+vc.labelByMaxClusters(4)
+#vc.labelNoise(.05)
+
+# Retrieve labels and plot results
+data_labels = vc.getLabels()
+plt.scatter(data[:,0], data[:,1], c=data_labels)
+plt.show()
+```
 
 
 
