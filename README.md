@@ -50,7 +50,7 @@ plt.show()
 
 
 
-# C++ Installation
+## C++ Installation
 ----- Step 1 -----
 
 To build the VoroClust executable:
