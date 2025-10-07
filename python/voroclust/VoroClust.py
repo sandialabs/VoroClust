@@ -197,30 +197,30 @@ class VoroClust(voroclust.voroclust):
 
         return self.data
 
-    def plot_predictions(self):
+    def plot_predictions(self, cmap="tab20c"):
         if self.image_data:
-            self.plot_predictions_imshow()
+            self.plot_predictions_imshow(cmap=cmap)
         else:
-            self.plot_predictions_scatter()
+            self.plot_predictions_scatter(cmap=cmap)
 
-    def plot_predictions_imshow(self):
+    def plot_predictions_imshow(self, cmap="tab20c"):
         
         pred_vals = self.reshape_predictions()
         fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12,8))
 
-        CMAP = 'tab20c'
+        #CMAP = 'tab20c'
         axes[0].imshow(self.input_data)
         axes[0].set_title("Input Data", fontsize=18)
-        axes[1].imshow(pred_vals, cmap=CMAP)
+        axes[1].imshow(pred_vals, cmap=cmap)
         axes[1].set_title("Cluster Results", fontsize=18)
         plt.show()
         
-    def plot_predictions_scatter(self):
+    def plot_predictions_scatter(self, cmap="tab20c"):
         if (self.feature_dim != 2):
             print("\n[*] WARNING: plotting is only supported for 2D data and images; skipping plots...\n")
         else:
             # Plot results
-            plt.scatter(self.input_data[:,0], self.input_data[:,1], c=self.predictions)
+            plt.scatter(self.input_data[:,0], self.input_data[:,1], c=self.predictions, cmap=cmap)
             plt.show()
         
     ###  Omit print statements unless in debug mode

@@ -31,9 +31,7 @@ def main():
                                                     noise_threshold=noise_threshold)
 
     # Plot results
-    data = model.input_data
-    plt.scatter(data[:,0], data[:,1], c=cluster_vals)
-    plt.show()
+    model.plot_predictions(cmap="tab20c")
 
 
 if __name__ == "__main__":
