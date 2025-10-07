@@ -90,7 +90,10 @@ plt.show()
 ```
 
 
-## Example Results
+
+## Example Problems
+
+A collection of simple test problems are provided in the [./tests/](./tests/) directory for reference.
 
 <p align="center">
   <img src="tests/figs/example_results_2.png" width="35%" style="vertical-align: middle;"/>
