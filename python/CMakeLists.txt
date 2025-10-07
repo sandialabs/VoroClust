@@ -27,7 +27,7 @@ cmake_minimum_required(VERSION 3.12.0)
 #This path used when the python build is a part of the full vorocrust repository (in src/Clustering/python)
 #set(SRC_PATH "..")
 
-#This path used in standalone VoroClust repository, when the python folder is moved from src to the toplevel
+#This path used in standalone voroclust repository, when the python folder is moved from src to the toplevel
 set(SRC_PATH "../src/Clustering")
 
 set(target voroclust)
@@ -46,11 +46,37 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 
 find_package(pybind11 REQUIRED)
-pybind11_add_module(${target} voroclust.cpp ${CLUSTERING_SRCS})
+pybind11_add_module(${target} voroclust/voroclust.cpp ${CLUSTERING_SRCS})
 target_link_libraries(${target} PRIVATE OpenMP::OpenMP_CXX)
+
+
 
 target_include_directories(${target}
     PUBLIC
     ${SRC_PATH}
     ./GeneratedHeaders/
 )
+
+
+## Assuming target is named yourpkg_core and you want it to import as yourpkg._core
+#set_target_properties(${target} PROPERTIES
+#  OUTPUT_NAME "voroclust"
+#  PREFIX ""                               # no "lib" on Unix (pybind11_add_module does this for you)
+#  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/voroclust"
+#  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/voroclust"  # Windows
+#  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/voroclust"  # static import libs on Windows
+#)
+## If you use a multi-config generator (VS/Xcode), set per-config outputs:
+#foreach(cfg IN ITEMS Debug Release RelWithDebInfo MinSizeRel)
+#  set_target_properties(${target} PROPERTIES
+#    LIBRARY_OUTPUT_DIRECTORY_${cfg} "${CMAKE_CURRENT_SOURCE_DIR}/voroclust"
+#    RUNTIME_OUTPUT_DIRECTORY_${cfg} "${CMAKE_CURRENT_SOURCE_DIR}/voroclust"
+#    ARCHIVE_OUTPUT_DIRECTORY_${cfg} "${CMAKE_CURRENT_SOURCE_DIR}/voroclust"
+#  )
+#endforeach()
+#
+
+install(TARGETS voroclust
+  LIBRARY DESTINATION voroclust
+  RUNTIME DESTINATION voroclust
+  ARCHIVE DESTINATION voroclust)

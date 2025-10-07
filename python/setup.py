@@ -32,8 +32,9 @@ import subprocess
 import sys
 import platform
 from pathlib import Path
+import shutil
 
-from setuptools import Extension, setup
+from setuptools import Extension, setup, find_packages
 from setuptools.command.build_ext import build_ext
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
@@ -58,6 +59,7 @@ class CMakeBuild(build_ext):
         # Must be in this form due to bug in .resolve() only fixed in Python 3.10+
         ext_fullpath = Path.cwd() / self.get_ext_fullpath(ext.name)  # type: ignore[no-untyped-call]
         extdir = ext_fullpath.parent.resolve()
+        #extdir = ext_fullpath.resolve()
 
         # Using this requires trailing slash for auto-detection & inclusion of
         # auxiliary "native" libs
@@ -155,6 +157,37 @@ class CMakeBuild(build_ext):
         )
 
 
+        #"""
+        # Locate the built module
+        # If you used target name 'yourpkg_core' and OUTPUT_NAME '_core':
+        # CMake generator-dependent; search for the file
+        #built = next(build_temp.rglob("*voroclust.*.so"), None) or next(build_temp.rglob("*voroclust.*.pyd"), None)
+        built = next(extdir.rglob("*voroclust.*.so"), None) or next(extdir.rglob("*voroclust.*.pyd"), None)
+
+        """
+        print("\nFILENAMES:   ({:})".format(extdir))
+        filenames = extdir.rglob("*.so")
+        for f in filenames:
+            print(f)
+        
+        print("\nFILENAMES:   ({:})".format(build_temp))
+        filenames = build_temp.rglob("*.so")
+        for f in filenames:
+            print(f)
+        """
+            
+        if not built:
+            raise RuntimeError("\n\n[*] ERROR: Could not find built voroclust module\n\n")
+
+        # Copy into build_lib/yourpkg so it lands in the wheel
+        pkg_dir = Path(self.build_lib) / "VoroClust"
+        pkg_dir.mkdir(parents=True, exist_ok=True)
+
+        print("\n\n[*] copying '{:}' to '{:}'\n\n".format(built, pkg_dir / built.name))
+        shutil.copy2(built, pkg_dir / built.name)
+        #"""
+
+
 # The information here can also be placed in setup.cfg - better separation of
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
@@ -164,9 +197,13 @@ setup(
     author_email="ljmoyni@sandia.gov",
     description="",
     long_description="",
+    packages=find_packages(),
     ext_modules=[CMakeExtension("voroclust")],
+    #ext_modules=[CMakeExtension("VoroClust/voroclust")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
     extras_require={"test": ["pytest>=6.0"]},
     python_requires=">=3.11",
+    include_package_data=True,
+    package_data={"voroclust": ["*.so", "*.pyd"]},  # ensure wheel includes the binary
 )
