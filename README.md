@@ -3,24 +3,25 @@
 VoroClust is a scalable, density-based clustering algorithm that leverages sphere covers to accurately model the geometric structure of clusters.  The algorithm has one primary parameter, the radius `R` used to construct the sphere cover, and three auxiliary parameters: `detail_ceiling`, `descent_limit`, and `noise_threshold`.  The detail ceiling helps avoid breaking up clusters in high-density regions (e.g., triggered by false peaks due to noise in the empirical density estimates). The descent limit prevents clusters from expanding too far into low density regions, where outliers and anomalies may be present.  Finally, the noise threshold parameter can be specified to adjust the percentage of data that is declared noise.
 
 
-# Installation
+## Installation
 
 First, download the source code from the repository:
 ```console
 $ git clone https://github.com/sandialabs/VoroClust.git
 ```
 
-### Note for Linux HPC Systems
-If you encounter the error `Directory not empty: build/bdist.linux-x86_64/wheel/voroclust` during installation, it is possible that the temporary file directory needs to be adjusted to a location on the local drive.  This can be done by creating a directory `mkdir ./tmp` and setting the environment variable `export TMPDIR=<path_to_tmp_dir>` before installing with pip.
-
-
-
 Change into the Python source directory, and install using pip:
 ```console
 $ cd ./VoroClust/python
 $ python -m pip install .
 ```
-# Example Usage
+
+#### Note for Linux HPC Systems
+If you encounter the error `Directory not empty: build/bdist.linux-x86_64/wheel/voroclust` during installation, it is possible that the temporary file directory needs to be adjusted to a location on the local drive.  This can be done by creating a directory `mkdir ./tmp` and setting the environment variable `export TMPDIR=<path_to_tmp_dir>` before installing with pip.
+
+
+
+## Example Usage
 
 ```python
 from voroclust import VoroClust
@@ -57,7 +58,7 @@ plt.scatter(data[:,0], data[:,1], c=cluster_vals)
 plt.show()
 ```
 
-# Alternate Usage
+## Alternate Usage
 
 ```python
 from voroclust import voroclust
