@@ -10,6 +10,11 @@ First, download the source code from the repository:
 $ git clone https://github.com/sandialabs/VoroClust.git
 ```
 
+### Note for Linux HPC Systems
+If you encounter the error `Directory not empty: build/bdist.linux-x86_64/wheel/voroclust` during installation, it is possible that the temporary file directory needs to be adjusted to a location on the local drive.  This can be done by creating a directory `mkdir ./tmp` and setting the environment variable `export TMPDIR=<path_to_tmp_dir>` before installing with pip.
+
+
+
 Change into the Python source directory, and install using pip:
 ```console
 $ cd ./VoroClust/python
