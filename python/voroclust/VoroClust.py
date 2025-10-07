@@ -105,6 +105,7 @@ class VoroClust(voroclust.voroclust):
                 self.resolution_y = self.data.shape[1]
                 data_size = self.data.shape[0] * self.data.shape[1]
                 data_dimensions = self.data.shape[2]
+                self.data = np.reshape(self.data, [data_size, data_dimensions])
 
             self.data = self.data.flatten()
 
@@ -168,7 +169,7 @@ class VoroClust(voroclust.voroclust):
                 #self.data = load_image(data_filename)
                 # Load the image using PIL
                 img = Image.open(data_filename).convert("RGB")  # Ensure it's in RGB mode
-                self.data = np.array(img)
+                self.data = np.array(img) / 255.0
             else:
                 msg = "\n[*] Invalid extension '{:}'; currently only support '.npy', '.csv', '.mat', '.png', and '.jpeg'\n"
                 raise NotImplementedError(msg.format(extension))
@@ -195,6 +196,32 @@ class VoroClust(voroclust.voroclust):
         #print(reshaped_data.shape)
 
         return self.data
+
+    def plot_predictions(self):
+        if self.image_data:
+            self.plot_predictions_imshow()
+        else:
+            self.plot_predictions_scatter()
+
+    def plot_predictions_imshow(self):
+        
+        pred_vals = self.reshape_predictions()
+        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12,8))
+
+        CMAP = 'tab20c'
+        axes[0].imshow(self.input_data)
+        axes[0].set_title("Input Data", fontsize=18)
+        axes[1].imshow(pred_vals, cmap=CMAP)
+        axes[1].set_title("Cluster Results", fontsize=18)
+        plt.show()
+        
+    def plot_predictions_scatter(self):
+        if (self.feature_dim != 2):
+            print("\n[*] WARNING: plotting is only supported for 2D data and images; skipping plots...\n")
+        else:
+            # Plot results
+            plt.scatter(self.input_data[:,0], self.input_data[:,1], c=self.predictions)
+            plt.show()
         
     ###  Omit print statements unless in debug mode
     def debug_print(self, string):
@@ -235,6 +262,10 @@ class VoroClust(voroclust.voroclust):
 
         post_end_time = perf_counter()                                            
         print("[*] VCC.fit() post-processing completed in {:.2f} seconds".format(post_end_time - post_start_time))
+
+
+        print(f"predictions: {self.predictions.shape}")
+        print(f"labels: {labels.shape}")
         
         return self.predictions, labels, noise_indices
     

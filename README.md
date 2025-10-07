@@ -36,7 +36,7 @@ NUM_THREADS = 8
 
 
 # Specify optional post-processing options
-noise_style = "Assign Noise by Quantile"
+noise_style = "Assign Noise by Quantile"    # or "Prune Clusters" with 'max_clusters' set
 max_clusters = None
 noise_threshold = 0.05
 
