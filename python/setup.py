@@ -180,7 +180,8 @@ class CMakeBuild(build_ext):
             raise RuntimeError("\n\n[*] ERROR: Could not find built voroclust module\n\n")
 
         # Copy into build_lib/yourpkg so it lands in the wheel
-        pkg_dir = Path(self.build_lib) / "VoroClust"
+        #pkg_dir = Path(self.build_lib) / "VoroClust"
+        pkg_dir = Path(self.build_lib) / "voroclust"
         pkg_dir.mkdir(parents=True, exist_ok=True)
 
         print("\n\n[*] copying '{:}' to '{:}'\n\n".format(built, pkg_dir / built.name))
