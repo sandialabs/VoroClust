@@ -33,6 +33,7 @@ import sys
 import platform
 from pathlib import Path
 import shutil
+import time
 
 from setuptools import Extension, setup, find_packages
 from setuptools.command.build_ext import build_ext
@@ -184,10 +185,13 @@ class CMakeBuild(build_ext):
         pkg_dir = Path(self.build_lib) / "voroclust"
         pkg_dir.mkdir(parents=True, exist_ok=True)
 
-        print("\n\n[*] copying '{:}' to '{:}'\n\n".format(built, pkg_dir / built.name))
+        print("\n\n[*] copying '{:}' to '{:}'\n".format(built, pkg_dir / built.name))
         with open(built, 'rb') as src, open(pkg_dir / built.name, 'wb') as dst:
             #shutil.copy2(built, pkg_dir / built.name)
-            shutil.copy2(src, dst)
+            shutil.copyfileobj(src, dst)
+
+        print("  --> wrote successfully\n\n")
+        time.sleep(1)
         #"""
 
 
