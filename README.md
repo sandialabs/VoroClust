@@ -90,6 +90,14 @@ plt.show()
 ```
 
 
+## Example Results
+
+<p align="center">
+  <img src="tests/figs/example_results_2.png" width="30%" />
+  <img src="tests/figs/example_results_1.png" width="60%" />
+</p>
+
+
 
 ## C++ Installation
 ----- Step 1 -----

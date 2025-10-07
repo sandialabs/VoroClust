@@ -9,18 +9,18 @@ from PIL import Image
 
 def main():
     # Specify algorithm hyperparameters
-    R = 0.1
-    detail_ceiling = 0.8
-    descent_limit = 0.1
+    R = 0.07
+    detail_ceiling = 0.85
+    descent_limit = 0.15
     NUM_THREADS = 8
 
     # Specify optional post-processing options
     noise_style = "Prune Clusters"
-    max_clusters = 25
+    max_clusters = 20
     noise_threshold = None
 
     # Initialize clustering model
-    model = VoroClust(data_filename="<path_to_image>.jpg",
+    model = VoroClust(data_filename="./datasets/BasicClusteringTest/example_image.png",
                       radius=R,
                       detail_ceiling=detail_ceiling,
                       descent_limit=descent_limit,
@@ -32,7 +32,7 @@ def main():
                                                     noise_threshold=noise_threshold)
 
     # Plot results
-    model.plot_predictions()
+    model.plot_predictions(cmap="tab20c")
 
 
 if __name__ == "__main__":
