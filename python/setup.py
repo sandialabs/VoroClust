@@ -185,7 +185,9 @@ class CMakeBuild(build_ext):
         pkg_dir.mkdir(parents=True, exist_ok=True)
 
         print("\n\n[*] copying '{:}' to '{:}'\n\n".format(built, pkg_dir / built.name))
-        shutil.copy2(built, pkg_dir / built.name)
+        with open(built, 'rb') as src, open(pkg_dir / built.name, 'wb') as dst:
+            #shutil.copy2(built, pkg_dir / built.name)
+            shutil.copy2(src, dst)
         #"""
 
 
