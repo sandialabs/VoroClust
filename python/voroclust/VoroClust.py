@@ -271,6 +271,9 @@ class VoroClust(voroclust.voroclust):
         print("[*] VCC.fit() post-processing completed in {:.2f} seconds".format(post_end_time - post_start_time))
 
 
+        # Reshape predictions to match shape of input data
+        self.predictions = self.reshape_predictions()
+        
         print(f"predictions: {self.predictions.shape}")
         print(f"labels: {labels.shape}")
         
