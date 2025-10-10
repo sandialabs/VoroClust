@@ -253,7 +253,7 @@ class VoroClust(voroclust.voroclust):
                 self.labelByMaxClusters(max_clusters)                
                 end_time = perf_counter()
                 print("\n[*] Clusters pruned in {:.2f} seconds".format(end_time - start_time))                
-            elif noise_style == "Assign Noise by Quantile":
+            elif noise_style == "Assign Noise":
                 start_time = perf_counter()                
                 self.labelNoise(noise_threshold)
                 end_time = perf_counter()
@@ -264,7 +264,7 @@ class VoroClust(voroclust.voroclust):
         self.predictions = self.getLabels()
         labels = np.unique(self.predictions)
 
-        if noise_style == "Assign Noise by Quantile":
+        if noise_style == "Assign Noise":
             noise_indices = (self.predictions == -1)
 
         post_end_time = perf_counter()                                            
@@ -431,7 +431,7 @@ if __name__ == "__main__":
 
 
     # Specify optional post-processing options
-    noise_style = "Assign Noise by Quantile"
+    noise_style = "Assign Noise"
     max_clusters = None
     noise_threshold = 0.05
 

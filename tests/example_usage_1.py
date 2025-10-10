@@ -14,7 +14,7 @@ def main():
 
 
     # Specify optional post-processing options
-    noise_style = "Assign Noise by Quantile"
+    noise_style = "Assign Noise"
     max_clusters = None
     noise_threshold = 0.05
 
