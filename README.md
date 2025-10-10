@@ -50,12 +50,10 @@ model = VoroClust(data,
                   descent_limit=descent_limit,
                   num_threads=NUM_THREADS)
 
-###
-###  Note: filenames can also be provided directly to the VoroClust class 
-###
-#    model = VoroClust(data_filename="./dataset/BasicClusteringTest/noisy_moons.csv",
-#                      ...)
-
+#
+#  Note: filenames can also be provided directly to VoroClust 
+#        model = VoroClust(data_filename="./dataset/BasicClusteringTest/noisy_moons.csv", ... )
+#
 
 # Fit clustering model to data
 cluster_vals, labels, noise_indices = model.fit(noise_style=noise_style,
