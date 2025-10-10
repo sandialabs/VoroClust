@@ -19,11 +19,19 @@ def main():
     noise_threshold = 0.05
 
     # Initialize clustering model
-    model = VoroClust(data_filename="./datasets/BasicClusteringTest/noisy_moons.csv",
+    data = np.load("./datasets/BasicClusteringTest/noisy_moons.npy")
+    model = VoroClust(data,
                       radius=R,
                       detail_ceiling=detail_ceiling,
                       descent_limit=descent_limit,
                       num_threads=NUM_THREADS)
+
+    # Alternative option; loading from file
+    #model = VoroClust(data_filename="./datasets/BasicClusteringTest/noisy_moons.csv",
+    #                  radius=R,
+    #                  detail_ceiling=detail_ceiling,
+    #                  descent_limit=descent_limit,
+    #                  num_threads=NUM_THREADS)
 
     # Fit clustering model to data
     cluster_vals, labels, noise_indices = model.fit(noise_style=noise_style,

@@ -40,12 +40,22 @@ noise_style = "Assign Noise by Quantile"    # or "Prune Clusters" with 'max_clus
 max_clusters = None
 noise_threshold = 0.05
 
+# Load input data
+data = np.load("./dataset/BasicClusteringTest/moons.npy")
+
 # Initialize clustering model
-model = VoroClust(data_filename="./datasets/BasicClusteringTest/noisy_moons.csv",
+model = VoroClust(data,
                   radius=R,
                   detail_ceiling=detail_ceiling,
                   descent_limit=descent_limit,
                   num_threads=NUM_THREADS)
+
+###
+###  Note: filenames can also be provided directly to the VoroClust class 
+###
+#    model = VoroClust(data_filename="./dataset/BasicClusteringTest/noisy_moons.csv",
+#                      ...)
+
 
 # Fit clustering model to data
 cluster_vals, labels, noise_indices = model.fit(noise_style=noise_style,
@@ -55,37 +65,6 @@ cluster_vals, labels, noise_indices = model.fit(noise_style=noise_style,
 # Plot results
 data = model.input_data
 plt.scatter(data[:,0], data[:,1], c=cluster_vals)
-plt.show()
-```
-
-## Alternate Usage
-
-```python
-from voroclust import voroclust
-import matplotlib.pyplot as plt
-import numpy as np
-
-data = np.loadtxt("path/to/data.csv", delimiter=',')
-size = data.shape[0]
-dimensions = data.shape[1]
-
-vc = voroclust(data.flatten(),
-               data_size=size,
-               data_dimensions = dimensions,
-               radius=0.35,
-               detail_ceiling=0.8,
-               descent_limit=0.2,
-               num_threads=12)
-
-vc.execute()
-
-# Choose between optional post-processing steps
-vc.labelByMaxClusters(4)
-#vc.labelNoise(.05)
-
-# Retrieve labels and plot results
-data_labels = vc.getLabels()
-plt.scatter(data[:,0], data[:,1], c=data_labels)
 plt.show()
 ```
 
@@ -162,3 +141,36 @@ Within that directory, navigate to pybind11/share/cmake/pybind11, where it shoul
 You can tell CMake exactly where this is by setting the pybind11_DIR variable in python/CMakeLists.txt:
 
 set(pybind11_DIR "path/to/pybind11Config.cmake")
+
+
+## Legacy Interface
+
+```python
+from voroclust import voroclust
+import matplotlib.pyplot as plt
+import numpy as np
+
+data = np.loadtxt("path/to/data.csv", delimiter=',')
+size = data.shape[0]
+dimensions = data.shape[1]
+
+vc = voroclust(data.flatten(),
+               data_size=size,
+               data_dimensions = dimensions,
+               radius=0.35,
+               detail_ceiling=0.8,
+               descent_limit=0.2,
+               num_threads=12)
+
+vc.execute()
+
+# Choose between optional post-processing steps
+vc.labelByMaxClusters(4)
+#vc.labelNoise(.05)
+
+# Retrieve labels and plot results
+data_labels = vc.getLabels()
+plt.scatter(data[:,0], data[:,1], c=data_labels)
+plt.show()
+```
+

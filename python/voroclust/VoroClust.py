@@ -75,11 +75,36 @@ class VoroClust(voroclust.voroclust):
 
         if data is not None:
             self.data = data
+            array_dims = len(self.data.shape)
+            assert( (array_dims == 2) or (array_dims == 3) ) , "\n[*] ERROR: input data must be 2D or 3D; found {:} dimensions\n".format(array_dims)
+            if (array_dims == 3):
+                self.image_data = True
+            elif (array_dims == 2):
+                self.image_data = False
+            
         elif data_filename is not None:
             self.data = self.load_data(data_filename)
         else:
-            raise NotImplementedError("\n[*] ERROR: must provide data or data_filename as input to Voronoi_Clustering...\n")
+            raise NotImplementedError("\n[*] ERROR: must provide data or data_filename as input to VoroClust...\n")
 
+
+        # Store original shape information for reformatting prediction array
+        print("\n[*] Input Data:")
+        print(self.data.shape)
+        self.original_data_shape = self.data.shape
+
+        if len(self.data.shape) == 1:
+            self.feature_dim = 1
+            self.prediction_data_shape = self.data.shape[0]
+        else:
+            self.feature_dim = self.data.shape[-1]
+            self.prediction_data_shape = list(self.data.shape[:-1]) #+ [1]
+            if len(self.prediction_data_shape) == 2:
+                self.image_data = True
+
+        #print("\n[*] Reshaped Input Data:")
+        #print(reshaped_data.shape)
+        
 
         self.input_data = self.data
         
@@ -143,8 +168,9 @@ class VoroClust(voroclust.voroclust):
         """
         
         # Check if a filename was passed and load data based on extension
-        self.image_data = False
         if isinstance(data_filename, str):
+            self.image_data = False
+            
             extension = os.path.splitext(data_filename)[-1]
             if extension.lower() in set([".npy"]):
                 self.data = np.load(data_filename)
@@ -175,28 +201,9 @@ class VoroClust(voroclust.voroclust):
                 raise NotImplementedError(msg.format(extension))
                 
 
-        # Store original shape information for reformatting prediction array
-        print("\n[*] Input Data:")
-        print(self.data.shape)
-        #if self.jaccard_distance:
-        #    self.mpi_print(data)
-
-        self.original_data_shape = self.data.shape
-
-        if len(self.data.shape) == 1:
-            self.feature_dim = 1
-            self.prediction_data_shape = self.data.shape[0]
-        else:
-            self.feature_dim = self.data.shape[-1]
-            self.prediction_data_shape = list(self.data.shape[:-1]) #+ [1]
-            if len(self.prediction_data_shape) == 2:
-                self.image_data = True
-
-        #print("\n[*] Reshaped Input Data:")
-        #print(reshaped_data.shape)
-
         return self.data
 
+    
     def plot_predictions(self, cmap="tab20c"):
         if self.image_data:
             self.plot_predictions_imshow(cmap=cmap)
