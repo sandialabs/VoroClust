@@ -1,5 +1,7 @@
 # VoroClust
 
+This is the code repository for the clustering algorithm introduced in (VoroClust: Scalable Clustering for Remote Sensing)[https://ieeexplore.ieee.org/abstract/document/11489482].
+
 VoroClust is a scalable, density-based clustering algorithm that leverages sphere covers to accurately model the geometric structure of clusters.  The algorithm has one primary parameter, the radius `R` used to construct the sphere cover, and three auxiliary parameters: `detail_ceiling`, `descent_limit`, and `noise_threshold`.  The detail ceiling helps avoid breaking up clusters in high-density regions (e.g., triggered by false peaks due to noise in the empirical density estimates). The descent limit prevents clusters from expanding too far into low density regions, where outliers and anomalies may be present.  Finally, the noise threshold parameter can be specified to adjust the percentage of data that is declared noise.
 
 
@@ -141,34 +143,17 @@ You can tell CMake exactly where this is by setting the pybind11_DIR variable in
 set(pybind11_DIR "path/to/pybind11Config.cmake")
 
 
-## Legacy Interface
+## How to cite VoroClust
 
-```python
-from voroclust import voroclust
-import matplotlib.pyplot as plt
-import numpy as np
-
-data = np.loadtxt("path/to/data.csv", delimiter=',')
-size = data.shape[0]
-dimensions = data.shape[1]
-
-vc = voroclust(data.flatten(),
-               data_size=size,
-               data_dimensions = dimensions,
-               radius=0.35,
-               detail_ceiling=0.8,
-               descent_limit=0.2,
-               num_threads=12)
-
-vc.execute()
-
-# Choose between optional post-processing steps
-vc.labelByMaxClusters(4)
-#vc.labelNoise(.05)
-
-# Retrieve labels and plot results
-data_labels = vc.getLabels()
-plt.scatter(data[:,0], data[:,1], c=data_labels)
-plt.show()
+If you find this code useful, please cite this work using the BibTeX entry below:
 ```
+@article{winovich2026voroclust,
+  title={VoroClust: Scalable Clustering for Remote Sensing},
+  author={Winovich, Nick and Moynihan, Liam and Abdelrahman, Osama and West, R Derek and Dauphin, Stephen and Tucker, J Derek and Huerta, Gabriel and Potter, Kevin and Forrest, Robert and Phillips, Cynthia and others},
+  journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
+  year={2026},
+  publisher={IEEE}
+}
+```
+
 
