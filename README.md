@@ -1,6 +1,6 @@
 # VoroClust
 
-This is the code repository for the clustering algorithm introduced in (VoroClust: Scalable Clustering for Remote Sensing)[https://ieeexplore.ieee.org/abstract/document/11489482].
+This is the code repository for the clustering algorithm introduced in [VoroClust: Scalable Clustering for Remote Sensing](https://ieeexplore.ieee.org/abstract/document/11489482).
 
 VoroClust is a scalable, density-based clustering algorithm that leverages sphere covers to accurately model the geometric structure of clusters.  The algorithm has one primary parameter, the radius `R` used to construct the sphere cover, and three auxiliary parameters: `detail_ceiling`, `descent_limit`, and `noise_threshold`.  The detail ceiling helps avoid breaking up clusters in high-density regions (e.g., triggered by false peaks due to noise in the empirical density estimates). The descent limit prevents clusters from expanding too far into low density regions, where outliers and anomalies may be present.  Finally, the noise threshold parameter can be specified to adjust the percentage of data that is declared noise.
 
